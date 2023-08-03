@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<!--登陆注册-->
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <!--图标库 可无视-->
+  <link rel='stylesheet' href='css/font-awesome.min.css'>
+
+  <!--核心样式-->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="container">
+  <div class="card"></div>
+  <div class="card">
+    <h1 class="title">用户登录</h1>
+    <form id="loginForm" method="post">
+      <div class="input-container">
+        <input type="text" name="id" required="required" />
+        <label for="#{label}">账号</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="password" name="password" required="required" />
+        <label for="#{label}">密码</label>
+        <div class="bar"></div>
+      </div>
+
+
+      <div class="button-container">
+        <button type="button" id="btn"><span>登录</span></button>
+      </div>
+      <div><p style="color: red;text-align: center" id="err_msg"></p></div>
+    </form>
+  </div>
+  <div class="card alt">
+    <div class="toggle"></div>
+    <h1 class="title">会员注册
+      <div class="close"></div>
+    </h1>
+    <form th:action="@{add.do}" method="post">
+      <div class="input-container">
+        <input type="#{type}" name="id" id="#{label}" required="required" />
+        <label for="#{label}">账号</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" name="username" id="#{label}" required="required" />
+        <label for="#{label}">真实姓名</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" name="password" id="#{label}" required="required" />
+        <label for="#{label}">密码</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" name="id_number" id="#{label}" required="required" />
+        <label for="#{label}">身份信息</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" name="phone" id="#{label}" required="required" />
+        <label for="#{label}">手机号</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="button-container">
+        <button><span>提交注册</span></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src='js/jquery.min.js'></script>
+<script src="js/script.js"></script>
+<div style="text-align:center;">
+</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+</script>
+
+</html>

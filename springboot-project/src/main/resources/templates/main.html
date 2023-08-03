@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/margin.css}" />
+   <!-- <link rel="stylesheet" href="css/main.css">-->
+    <title>网络聊天室</title>
+</head>
+<style>
+    .tiao-left{
+        height: 40%;
+        background-color: #e5f7f2;
+    }
+    .vertical-nav {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        margin-top: 5%;
+    }
+
+    .vertical-nav a {
+        display: block;
+        margin-bottom: 10px;
+        /* 添加其他样式 */
+    }
+    .vertical-nav {
+        background-color: #e5f7f2;
+        width: 12%;
+
+        float: left;
+        text-align: center;
+    }
+
+    .vertical-nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .vertical-nav li {
+        margin-bottom: 10px;
+    }
+
+    .vertical-nav a {
+        display: block;
+        text-decoration: none;
+    }
+    .tutiao{
+        display: flex;
+    }
+    .search-container {
+        margin-top: 2%;
+        display: flex;
+        align-items: center;
+        width: 300px;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-right: 15%;
+    }
+
+    .search-input {
+        flex-grow: 1;
+        width: 100%;
+        border: none;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .search-button {
+        border: none;
+        background-color: #7dbaff;
+        color: #fff;
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .logout{
+        margin-top: 2%;
+        margin-right: 10%;
+    }
+
+
+</style>
+
+<style>
+    #contains{
+        /*background:#fff;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.06),0 2px 5px 0 rgba(0,0,0,0.06);
+        display: flex;*/
+        background-color: rgba(0,0,0,0.06);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        width: 960px;
+        height: 700px;
+        margin: auto;
+    }
+    #username{
+        /*background-color: powderblue;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        width: 960px;
+        height: 30px;
+    }
+    #Inchat{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        width: 960px;
+        height: 30px;
+    }
+    #left{
+        /*background:#e5ddd5;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        width: 680px;
+        height: 640px;
+        float: left;
+        position: relative;
+    }
+    #content{
+        /*background-color: silver;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-right: 1px solid ;
+        width: 680px;
+        height: 400px;
+        /*display: none;*/
+        visibility: hidden;
+    }
+    #right{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        width: 280px;
+        height: 640px;
+        float: right;
+    }
+    #hyList{
+        height: 270px;
+        overflow-y: scroll;
+        /*background: antiquewhite;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    #xtList{
+        height: 270px;
+        overflow-y: scroll;
+        /*background: antiquewhite;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    #input{
+        background: #f0f0f0;
+        /*margin-bottom: 0px;
+        position: absolute;
+        bottom: 0px;*/
+    }
+    #mes_left{
+        float: left;
+        /*border: 2px aqua;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        max-width: 490px;
+    }
+    #mes_right{
+        float: right;
+        /*border: 2px aqua;*/
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        max-width: 490px;
+    }
+    #hy{
+        display: block;
+        width: 300px;
+    }
+    textarea {
+        resize: none;
+        border: none;
+        outline: none
+    }
+</style>
+<body class="rongqi">
+<div class="row">
+    <div class="col-md-12">
+        <div class="blackdaohang">
+            <div class="blackdaohang-left">
+                <ul>
+                    <li>
+                        <h4><a href="#">患者版</a></h4>
+                    </li>
+                    <li>
+                        <h4><a href="#">学术版</a></h4>
+                    </li>
+                    <li>
+                        <h4><a href="#">员工版</a></h4>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="blackdaohang-right">
+                <ul>
+                    <li>
+                        <h4><a href="#">购物车</a></h4>
+                    </li>
+                    <li class="geren">
+                        <h4><a th:href="@{user.do}" href="#">
+                            个人中心
+                            <!--<img class="denglu" src="img/appxiazai.jpg" width="100%" />-->
+                        </a></h4>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    document.querySelector('.search-button').addEventListener('click', function () {
+        var searchTerm = document.querySelector('.search-input').value;
+        // 执行搜索操作，可以将 searchTerm 发送到后端进行处理
+        console.log('搜索内容: ' + searchTerm);
+    });
+</script>
+<div class="tiao-left"- >
+    <div class="vertical-nav">
+
+
+
+        <br><br><br><br><br><br>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home.do}" th：href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-3v-7h-6v7H5a2 2 0 0 1-2-2V9zm9-4v6h6V5l-3-3-3 3z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                首页
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/findAll.do}" th：href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                医生
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th：href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                商城
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/chat2.do}" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                在线问诊
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/blog.do}" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                论坛
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/ai.do}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                AI问答
+            </a>
+        </li>
+        <br><br><br><br><br><br>
+    </div>
+</div>
+<div id = "contains">
+    <div id="username"><h3 style="text-align: center;">用户：张三<span>-在线</span></h3></div>
+    <div id="Inchat"></div>
+    <div id="left">
+        <div id="content">
+
+        </div>
+        <div id="input">
+            <textarea type="text" id="input_text" style="width: 677px;height: 200px;"></textarea>
+        </div>
+        <div style="margin-top: -45px;margin-left: 575px;">
+            <button class="btn btn-default" id="submit" style="width: 100px;">发送</button>
+        </div>
+    </div>
+    <div id="right">
+        <p id="hy" style="text-align: center;">好友列表</p>
+        <div id="hyList">
+
+        </div>
+        <p id="xt" style="text-align: center">系统消息</p>
+        <div id="xtList">
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    var toName;
+    var username;
+    //点击好友名称展示相关消息
+    function showChat(name){
+        toName = name;
+        //现在聊天框
+        $("#content").html("");
+        $("#content").css("visibility","visible");
+        $("#Inchat").html("当前正与"+toName+"聊天");
+        //从sessionStorage中获取历史信息
+        var chatData = sessionStorage.getItem(toName);
+        if (chatData != null){
+            $("#content").html(chatData);
+        }
+    }
+    $(function () {
+        $.ajax({
+            url:"getUsername",
+            success:function (res) {
+                username = res;
+            },
+            async:false //同步请求，只有上面好了才会接着下面
+        });
+        //建立websocket连接
+        //获取host解决后端获取httpsession的空指针异常
+        var host = window.location.host;
+        var ws = new WebSocket("ws://"+host+"/chat");
+        ws.onopen = function (evt) {
+            $("#username").html("<h3 style=\"text-align: center;\">用户："+ username +"<span>-在线</span></h3>");
+        }
+        //接受消息
+        ws.onmessage = function (evt) {
+            //获取服务端推送的消息
+            var dataStr = evt.data;
+            //将dataStr转换为json对象
+            var res = JSON.parse(dataStr);
+
+            //判断是否是系统消息
+            if(res.system){
+                //系统消息
+                //1.好友列表展示
+                //2.系统广播的展示
+                //此处声明的变量是调试时命名的，可以直接合并
+                var names = res.message;
+                var userlistStr = "";
+                var broadcastListStr = "";
+                var temp01 = "<a style=\"text-align: center; display: block;\" onclick='showChat(\"";
+                var temp03 = "\")'>";
+                var temp04 = "</a></br>";
+                var temp = "";
+                for (var name of names){
+                    if (name != username){
+                        temp = temp01 + name + temp03 + name + temp04;
+                        userlistStr = userlistStr + temp;
+                        broadcastListStr += "<p style='text-align: center'>"+ name +"上线了</p>";
+                    }
+                }
+                //渲染好友列表和系统广播
+                $("#hyList").html(userlistStr);
+                $("#xtList").html(broadcastListStr);
+
+            }else {
+                //不是系统消息
+                var str = "<span id='mes_left'>"+ res.message +"</span></br>";
+                if (toName === res.fromName) {
+                    $("#content").append(str);
+                }
+                var chatData = sessionStorage.getItem(res.fromName);
+                if (chatData != null){
+                    str = chatData + str;
+                }
+                //保存聊天消息
+                sessionStorage.setItem(res.fromName,str);
+            };
+        }
+        ws.onclose = function () {
+            $("#username").html("<h3 style=\"text-align: center;\">用户："+ username +"<span>-离线</span></h3>");
+        }
+
+        //发送消息
+        $("#submit").click(function () {
+            //1.获取输入的内容
+            var data = $("#input_text").val();
+            //2.清空发送框
+            $("#input_text").val("");
+            var json = {"toName": toName ,"message": data};
+            //将数据展示在聊天区
+            var str = "<span id='mes_right'>"+ data +"</span></br>";
+            $("#content").append(str);
+
+            var chatData = sessionStorage.getItem(toName);
+            if (chatData != null){
+                str = chatData + str;
+            }
+            sessionStorage.setItem(toName,str);
+            //3.发送数据
+            ws.send(JSON.stringify(json));
+        })
+    })
+</script>
+<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+
+<script>
+    /*https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json*/
+    L2Dwidget.init({ "model": { jsonPath:
+                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+            "scale": 1 }, "display": { "position": "right", "width": 110, "height": 150,
+            "hOffset": 0, "vOffset": -20 }, "mobile": { "show": true, "scale": 0.5 },
+        "react": { "opacityDefault": 0.8, "opacityOnHover": 0.1 } });
+</script>
+</html>

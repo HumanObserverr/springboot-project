@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--个人简介-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生详情页</title>
+
+    <style>
+        /* CSS 样式可以根据您的需求进行自定义 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 70%;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .doctor-image {
+            float: left;
+            margin-right: 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .doctor-details {
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+            color: #333333;
+        }
+
+        .doctor-name {
+            font-weight: bold;
+            font-size: 20px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .doctor-specialty {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 10px;
+        }
+
+        .doctor-hospital {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 10px;
+        }
+
+        .doctor-bio {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+
+        .services {
+            margin-top: 30px;
+        }
+
+        .service {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .service-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .reviews {
+            margin-top: 30px;
+        }
+
+
+        .review-author {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333333;
+            margin-bottom: 5px;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .show-more-btn {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-button a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+
+    <div class="doctor-image">
+        <img src="../img/doctor.jpg" alt="医生照片">
+    </div>
+
+    <div class="doctor-details">
+        <h1>医生详情</h1>
+        <div class="doctor-name">
+            <strong>姓名:</strong> <span th:text="${doctor.name}"></span>
+        </div>
+
+        <div class="doctor-specialty">
+            <strong>科室:</strong> <span th:text="${doctor.position}"></span>
+        </div>
+
+        <div class="doctor-hospital">
+            <strong>所在医院:</strong> <span th:text="${doctor.hospital}"></span>
+        </div>
+
+        <div class="doctor-bio">
+            <strong>个人简介:</strong> <span th:text="${doctor.desc}"></span>
+        </div>
+
+        <div class="services">
+            <h2>医生服务</h2>
+            <div class="service">
+                <div class="service-title"><a th:href="@{chat2.do}">在线问诊</a></div>
+                <div class="service-description">在线问诊服务详情...</div>
+            </div>
+
+            <div class="service">
+                <div class="service-title">电话问诊</div>
+                <div class="service-description">电话问诊服务详情...</div>
+            </div>
+
+            <div class="service">
+                <div class="service-title">视频问诊</div>
+                <div class="service-description">视频问诊服务详情...</div>
+            </div>
+        </div>
+
+        <div class="reviews">
+            <h2>患者评价</h2>
+            <div class="review">
+                <div class="review-author">患者A</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review">
+                <div class="review-author">患者B</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review hide">
+                <div class="review-author">患者C</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review hide">
+                <div class="review-author">患者D</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review hide">
+                <div class="review-author">患者E</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review hide">
+                <div class="review-author">患者F</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review hide">
+                <div class="review-author">患者G</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="review hide">
+                <div class="review-author">患者H</div>
+                <div class="review-text">医生评价内容...</div>
+            </div>
+
+            <div class="show-more-btn">展开更多评价</div>
+        </div>
+    </div>
+
+    <div class="back-button">
+        <a href="#" onclick="window.history.back(); return false;">返回上一页</a>
+    </div>
+</div>
+
+<script>
+    // JavaScript代码实现评价折叠和展开功能
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    const hiddenReviews = document.querySelectorAll('.review.hide');
+    let isCollapsed = true;
+
+    showMoreBtn.addEventListener('click', () => {
+        if (isCollapsed) {
+            hiddenReviews.forEach(review => {
+                review.classList.remove('hide');
+            });
+            showMoreBtn.textContent = '收起评价';
+        } else {
+            hiddenReviews.forEach(review => {
+                review.classList.add('hide');
+            });
+            showMoreBtn.textContent = '展开更多评价';
+        }
+
+        isCollapsed = !isCollapsed;
+    });
+</script>
+</body>
+</html>

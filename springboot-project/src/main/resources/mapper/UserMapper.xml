@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.miao.springdemo.dao.UserMapper">
+    <insert id="add">
+        INSERT INTO user (`name`,username, password,id_number,token) VALUES(#{id},#{username},#{password},#{id_number},#{token})
+    </insert>
+    <select id="selectId" resultType="com.miao.springdemo.domain.User">
+        select * from user
+         <where>
+        <if test="param1 != null and param1 != ''">
+
+             <if test="param2 != '' and param2 != null">
+
+                 `name` = #{id}  and password = #{password}
+             </if>
+        </if>
+    </where>
+    </select>
+    <select id="userDesc" resultType="com.miao.springdemo.domain.User">
+        select * from user where `name` = #{id}
+    </select>
+    <update id="upInfo" >
+        UPDATE user
+    SET username = #{username},
+        gender = #{gender},
+        email = #{email},
+        location = #{location},
+        phone = #{phone},
+        birth = #{birth}
+
+    WHERE `name` = #{id}
+    </update>
+
+</mapper>

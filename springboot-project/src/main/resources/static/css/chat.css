@@ -1,0 +1,98 @@
+body{
+    background:url(../img/beijing.png) no-repeat center top;
+    background-size:cover;
+    background-attachment:fixed;
+}
+.horizontal-nav {
+    height: 50px;
+    margin-top: 10%;
+    display: flex;
+}
+
+.horizontal-nav a {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    /* 添加其他样式 */
+}
+.horizontal-nav li {
+    list-style-type: none;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 居中对齐 */
+html,body{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 设置外观 */
+.contentBox{
+    width: 90%;
+    min-width: 500px;
+    height: 95%;
+    min-height: 400px;
+
+    /*background-color: rgba(112, 128, 144,0.5);*/
+    /*border: 1px solid black;*/
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+#showBox{
+    overflow: auto;
+    width: 95%;
+    height: 90%;
+    /*border: 1px solid black;*/
+    margin: 2%;
+    background-color: rgba(255, 255, 255,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#bInput{
+    margin-bottom: 20px;
+}
+#buttonBox{
+    font-size: 16px;
+}
+input[type=text]{
+    height: 36px;
+    width: 200px;
+}
+input[type=button]{
+    height: 36px;
+    width: 100px;
+}
+
+/* 设置消息的样式 */
+#showBox p{
+    display:inline-block;
+    background: rgba(23, 129, 190,0.5);
+    border-radius:10px;
+
+    color:#fff;
+    padding:5px 10px;
+    margin: 5px 5px;
+}
+#showBox span p{
+    display:inline-block;
+    background: rgba(240, 128, 128,0.5);
+    border-radius:10px;
+    color:#fff;
+    margin: 5px 10px;
+}
+
+/* 改变B发送的消息的对齐方式 */
+#showBox span{
+    align-self: flex-end;
+}
