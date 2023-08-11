@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PageDto<T> {
-    //问题内容
+    //内容
     private List<T> data;
     //是否展示前一页
     private boolean showPre;

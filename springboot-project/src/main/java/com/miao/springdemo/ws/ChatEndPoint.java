@@ -55,13 +55,26 @@ public class ChatEndPoint {
     private Set<String> getNames() {
         return onLineUsers.keySet();
     }
-
+//广播上线用户
     private void broadcastAllUsers(String message) {
         try {
             Set<String> names = onLineUsers.keySet();
             for (String name : names) {
                 ChatEndPoint chatEndPoint = onLineUsers.get(name);
                 chatEndPoint.session.getBasicRemote().sendText(message);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            if (session != null && session.isOpen()) { // 检查会话是否打开
+                Set<String> names = onLineUsers.keySet();
+                for (String name : names) {
+                    ChatEndPoint chatEndPoint = onLineUsers.get(name);
+                    if (chatEndPoint.session != null && chatEndPoint.session.isOpen()) { // 检查用户会话是否打开
+                        chatEndPoint.session.getBasicRemote().sendText(message);
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,21 +101,19 @@ public class ChatEndPoint {
 
     @OnClose
     public void onClose(Session session) {
-//       try{
+
            String username = (String) httpSession.getAttribute("username");
         System.out.println("用户离开：" + username);
-//        if (username != null) {
-//            // 只在退出登录时删除在线用户的 ID
-//            if (CertificationController.isLogoutFlag()) {
-//                onLineUsers.remove(sessionId);
-//                UserInterceptor.onLineUsers.remove(username);
-//            }
-//        }
-////        httpSession.removeAttribute("username");
-//        String message = MessageUtils.getMessage(true, null, getNames());
-//        broadcastAllUsers(message);
-//       }catch (Exception e ){
-//           System.out.println("未能正确退出聊天室");
-//       }
+        if (username != null) {
+            // 只在退出登录时删除在线用户的 ID
+            if (CertificationController.isLogoutFlag()) {
+                onLineUsers.remove(sessionId);
+                UserInterceptor.onLineUsers.remove(username);
+            }
+        }
+        httpSession.removeAttribute("username");
+        String message = MessageUtils.getMessage(true, null, getNames());
+        broadcastAllUsers(message);
+
     }
 }

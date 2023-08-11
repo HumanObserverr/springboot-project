@@ -67,9 +67,9 @@ public class CertificationController {
     @RequestMapping("/getUsername")
     public String getUsername(HttpSession httpSession,HttpServletRequest request, HttpServletResponse response){
         request.getSession().removeAttribute("user");
-        Cookie cookie=new Cookie("token",null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+//        Cookie cookie=new Cookie("token",null);
+//        cookie.setMaxAge(0);
+//        response.addCookie(cookie);
         String username = (String) httpSession.getAttribute("username");
         return username;
     }

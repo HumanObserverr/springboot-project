@@ -277,29 +277,29 @@
 <!--						</li>-->
 <!--					</ul>-->
 <!--				</div>-->
-				<!--展示底部的页码-->
+<!--				展示底部的页码-->
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
 						<li th:if="${pagination.showfirst}">
-							<a href="/findAll.do?page=1" aria-label="Previous">
+							<a th:href="@{/cat.do(page=1,key=${'内科'})}" href="/cat.do?key=${内科}&page=1" aria-label="Previous">
 								<span aria-hidden="true">&lt;&lt;</span>
 							</a>
 						</li>
 						<li th:if="${pagination.showPre}">
-							<a th:href="@{/findAll.do(page=${pagination.page - 1})}" aria-label="Previous">
+							<a th:href="@{/cat.do(page=${pagination.page - 1},key=${'内科'})}" aria-label="Previous">
 								<span aria-hidden="true">&lt;</span>
 							</a>
 						</li>
 						<li th:each="page:${pagination.pages}" th:class="${pagination.page==page}? 'active' : ''">
-							<a th:href="@{/findAll.do(page=${page})}" th:text="${page}"></a>
+							<a th:href="@{/cat.do(page=${page}, key=${'内科'})}" th:text="${page}"></a>
 						</li>
 						<li th:if="${pagination.shownext}">
-							<a th:href="@{/findAll.do(page=${pagination.page+1})}" aria-label="Next">
+							<a th:href="@{/cat.do(page=${pagination.page+1}, key=${'内科'})}" aria-label="Next">
 								<span aria-hidden="true">&gt;</span>
 							</a>
 						</li>
 						<li th:if="${pagination.showlast}">
-							<a th:href="@{/findAll.do(page=${pagination.totalpage})}" aria-label="Next">
+							<a th:href="@{/cat.do(page=${pagination.totalpage}, key=${'内科'})}" aria-label="Next">
 								<span aria-hidden="true">&gt;&gt;</span>
 							</a>
 						</li>

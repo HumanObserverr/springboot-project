@@ -53,17 +53,6 @@ public class indexController {
                     request.getSession().setAttribute("unreadnum",unreadnum);
                 }
                 break;
-            }else{
-                String username = request.getSession().getAttribute("username").toString();
-                System.out.println("request:" + username);
-                user = userBlogMapper.findById(Integer.valueOf(username));
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
-                    //获取未读的消息数量
-                    int unreadnum=notificationMapper.getunreadcount(user.getId());
-                    request.getSession().setAttribute("unreadnum",unreadnum);
-                }
-                break;
             }
         }
         PageDto pagination = questionService.list(page, size);

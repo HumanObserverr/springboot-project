@@ -2,6 +2,7 @@ package com.miao.springdemo.controller;
 
 
 //import com.miao.springdemo.domain.Comment;
+import com.miao.springdemo.blog.dto.PageDto;
 import com.miao.springdemo.domain.Doctor;
 import com.miao.springdemo.domain.User;
 //import com.miao.springdemo.service.BlogService;
@@ -33,26 +34,6 @@ public class PathController {
 //    @Autowired
 //    private CommentService commentService;
 
-    @GetMapping("cat.do")
-    public String Cat(HttpServletRequest servletRequest, @RequestParam("key") String key,@RequestParam(defaultValue = "1") int page, Model model,HttpSession httpSession){
-        List<Doctor> doctors = doctorsService.findId(key);
-        System.out.println("doctors:" + doctors);
-        //计算页数
-        int pageSize = 10;
-        int totalDoctors = doctors.size();
-        int totalPages = (int) Math.ceil((double) totalDoctors / pageSize);
-
-        List<Doctor> doctorList = doctorsService.getDoctorsByPage(page,pageSize,key);
-        System.out.println("doctorList" + doctorList);
-        model.addAttribute("doctors", doctorList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        servletRequest.setAttribute("doctors",doctors);
-        servletRequest.setAttribute("username",username);
-
-        httpSession.setAttribute("user",username);
-        return "list.html";
-    }
 
 
     @RequestMapping("home.do")
@@ -83,22 +64,24 @@ public class PathController {
         return "index1.html";
     }
     @GetMapping("/findAll.do")
-    public String findAllDoctors(@RequestParam(defaultValue = "1") int page, Model model,HttpSession httpSession) {
-
-
-        List<Doctor> allDoctors = doctorsService.findAll();
-        int pageSize = 10;
-        int totalDoctors = allDoctors.size();
-        int totalPages = (int) Math.ceil((double) totalDoctors / pageSize);
-
-        List<Doctor> doctors = doctorsService.getDoctorsByPage(page,pageSize,"科");
-        System.out.println(doctors.size());
-        model.addAttribute("doctors", doctors);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        httpSession.setAttribute("user",username);
+    public String findAllDoctors(@RequestParam(defaultValue = "1") int page, @RequestParam(name = "size", defaultValue = "10") int pageSize, Model model,HttpSession httpSession) {
+        PageDto pagination = doctorsService.list(page, pageSize,"科");
+        model.addAttribute("pagination", pagination);
+//
+//        List<Doctor> allDoctors = doctorsService.findAll();
+//
+//        int totalDoctors = allDoctors.size();
+//        int totalPages = (int) Math.ceil((double) totalDoctors / pageSize);
+//
+//        List<Doctor> doctors = doctorsService.getDoctorsByPage(page,pageSize,"科");
+//        System.out.println(doctors.size());
+//        model.addAttribute("doctors", doctors);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", totalPages);
+//        httpSession.setAttribute("user",username);
         return "list.html";
     }
+    //搜索框查找
     @RequestMapping("findId.do")
     public String limitList(HttpServletRequest request,String key,HttpSession httpSession){
         List<Doctor> doctors = doctorsService.findId(key);
@@ -106,6 +89,31 @@ public class PathController {
         httpSession.setAttribute("user",username);
         return "list.html";
     }
+//类别查找
+    @GetMapping("cat.do")
+    public String Cat(HttpServletRequest servletRequest, @RequestParam("key") String key,@RequestParam(name = "page",defaultValue = "1") int page,  @RequestParam(name = "size", defaultValue = "10") int pageSize,Model model,HttpSession httpSession){
+        PageDto pagination = doctorsService.list(page, pageSize,key);
+        model.addAttribute("pagination", pagination);
+//        List<Doctor> doctors = doctorsService.findId(key);
+//        System.out.println("doctors:" + doctors);
+//        //计算页数
+//        int pageSize = 10;
+//        int totalDoctors = doctors.size();
+//        int totalPages = (int) Math.ceil((double) totalDoctors / pageSize);
+//
+//        List<Doctor> doctorList = doctorsService.getDoctorsByPage(page,pageSize,key);
+//        System.out.println(doctorList.size());
+//
+//        model.addAttribute("doctors", doctorList);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", totalPages);
+//        servletRequest.setAttribute("doctors",doctors);
+//        servletRequest.setAttribute("username",username);
+//
+//        httpSession.setAttribute("user",username);
+        return "listCat.html";
+    }
+
 
     @RequestMapping("person.do")
     public String PersonList(HttpServletRequest request,String id,HttpSession httpSession){
@@ -148,19 +156,7 @@ public class PathController {
 
     }
 
-//用户中心
-    @RequestMapping("user.do")
-    public String user(HttpServletRequest servletRequest){
-        System.out.println("用户中心" + username);
 
-        User user = userService.userDesc(username);
-
-        servletRequest.getSession().setAttribute("user",user);
-//        System.out.println(user);
-
-//        servletRequest.getSession().setAttribute("username",username);
-        return "user.html";
-    }
 
     @RequestMapping("add.do")
     public String add(String id, String username, String password, String id_number, Model model,HttpServletRequest request, HttpServletResponse response,HttpSession httpSession){
@@ -215,8 +211,22 @@ public class PathController {
         System.out.println("已成功更新" + this.username + "用户");
         User user = userService.userDesc(id);
         servletRequest.getSession().setAttribute("user",user);
-        servletRequest.getSession().setAttribute("username",this.username);
-        httpSession.setAttribute("user",username);
+//        servletRequest.getSession().setAttribute("username",this.username);
+//        httpSession.setAttribute("user",username);
+        return "user.html";
+    }
+
+    //用户中心
+    @RequestMapping("user.do")
+    public String user(HttpServletRequest servletRequest){
+        System.out.println("用户中心" + username);
+
+        User user = userService.userDesc(username);
+
+        servletRequest.getSession().setAttribute("user",user);
+//        System.out.println(user);
+
+//        servletRequest.getSession().setAttribute("username",username);
         return "user.html";
     }
 

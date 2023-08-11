@@ -140,8 +140,8 @@
                 <img src="avatar.jpg" alt="User Avatar">
             </div>
             <div class="user-details">
-                <p><i class="fas fa-user icon"></i><label>Username:</label> <span th:text="${#session.getAttribute('username')}">JohnDoe</span></p>
-                <p><i class="fas fa-map-marker-alt icon"></i><label>ID-Card:</label><span th:text="${#session.getAttribute('user').getId_number()}"> New York City</span></p>
+                <p><i class="fas fa-user icon"></i><label>Username:</label> <span th:text="${#session.getAttribute('user').getUsername()}">JohnDoe</span></p>
+                <p><i class="fas fa-map-marker-alt icon"></i><label>ID_card:</label><span th:text="${#session.getAttribute('user').getId_number()}"> New York City</span></p>
                 <p><i class="fas fa-envelope icon"></i><label>Email:</label> <span th:text="${#session.getAttribute('user').getEmail()}" >johndoe@example.com</span></p>
                 <p><i class="fas fa-map-marker-alt icon"></i><label>Location:</label><span th:text="${#session.getAttribute('user').getLocation()}"> New York City</span></p>
                 <!-- 添加其他用户信息字段 -->

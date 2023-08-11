@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ResultMessage {
     private boolean isSystem;
     private String fromName;
-    //private String toName;
+    private String toName;
     private Object message;
 
     public boolean isSystem() {

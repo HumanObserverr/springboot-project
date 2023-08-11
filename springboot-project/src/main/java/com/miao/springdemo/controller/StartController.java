@@ -25,7 +25,7 @@ public class StartController {
         System.out.println(message);
         String pythonPath = "springboot-project/doctor/doctor.py";
         //此处路径为本地Python路径
-        String[] arguments = new String[] {"D:\\HBase\\python",pythonPath,message};//指定命令、路径、传递的参数
+        String[] arguments = new String[] {"D:\\Program\\Python\\Python311\\python.exe",pythonPath,message};//指定命令、路径、传递的参数
         StringBuilder sbrs = null;
         StringBuilder sberror = null;
         ProcessBuilder builder = new ProcessBuilder(arguments);

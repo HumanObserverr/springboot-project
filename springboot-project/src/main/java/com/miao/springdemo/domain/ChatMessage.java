@@ -5,7 +5,7 @@ public class ChatMessage {
     private String recipient;
     private String content;
 
-    // 省略构造方法、getter 和 setter
+
 
     public ChatMessage() {
     }
